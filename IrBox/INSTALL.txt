@@ -1,0 +1,67 @@
+IrBox Installation Guide
+========================
+
+Copyright DeathAmir And IrAutoX
+
+Windows Installation (MinGW64):
+-------------------------------
+1. Install MSYS2 from https://www.msys2.org/
+2. Open MSYS2 MinGW64 terminal
+3. Install required packages:
+   pacman -S mingw-w64-x86_64-toolchain
+   pacman -S mingw-w64-x86_64-lua51
+   
+4. Navigate to IrBox folder
+5. Run: build_dll.bat
+   OR manually:
+   mingw64-make WINDOWS=1
+
+6. Copy required DLLs to build folder:
+   - lua5.1.dll
+   - libgcc_s_seh-1.dll
+   - libstdc++-6.dll
+   - libwinpthread-1.dll
+
+7. Run IrBox.exe from build folder
+
+Linux Installation:
+-------------------
+1. Install dependencies:
+   sudo apt-get install g++ make liblua5.1-dev
+
+2. Navigate to IrBox folder
+3. Run: make
+4. Run: ./build/IrBox
+
+Server Setup:
+-------------
+1. Build server: make server
+2. Run: ./build/IrBoxServer 8080
+3. Connect clients to server IP:port
+
+Admin Commands:
+---------------
+Connect to server and send:
+ADMIN:<adminkey>:<command>
+
+Admin key: IrBoxAdmin2024
+
+Commands:
+- KICK <userId>
+- BROADCAST <message>
+- SCRIPT:<lua code>
+
+File Formats:
+-------------
+.ibx - Encrypted model format
+.ibx.enc - Encrypted script format
+.lua - Plain Lua scripts
+
+Encryption:
+-----------
+Models: XOR cipher with key "IrBoxModelKey2024"
+Scripts: XOR + Hex encoding with key "IrBoxObf2024"
+
+Support:
+--------
+For issues, check README.md
