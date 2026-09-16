@@ -1,0 +1,119 @@
+====================================
+IrBox Ultimate - Installation Guide
+Copyright (c) 2024 DeathAmir And IrAutoX
+====================================
+
+STEP 1: Install MSYS2
+----------------------
+1. Download MSYS2 from https://www.msys2.org/
+2. Run installer, install to C:\msys64
+3. Open MSYS2 UCRT64 terminal
+
+STEP 2: Install Compiler
+------------------------
+In MSYS2 terminal:
+pacman -S mingw-w64-x86_64-gcc
+pacman -S mingw-w64-x86_64-make
+pacman -S unzip
+
+STEP 3: Install SDL3
+--------------------
+pacman -S mingw-w64-x86_64-SDL3
+
+STEP 4: Install LuaJIT
+----------------------
+pacman -S mingw-w64-x86_64-lua
+
+STEP 5: Build ENet Library
+--------------------------
+cd /tmp
+git clone https://github.com/lsalzman/enet.git
+cd enet
+autoreconf -fi
+./configure --host=x86_64-w64-mingw32
+make
+cp .libs/libenet-1.3.18.dll /mingw64/bin/
+cp include/enet /mingw64/include/ -r
+cp .libs/libenet.a /mingw64/lib/
+
+STEP 6: Copy DLLs to System
+----------------------------
+All required DLLs should be in C:\msys64\mingw64\bin:
+- SDL3.dll
+- lua51.dll
+- libenet-1.3.18.dll
+- libgcc_s_seh-1.dll
+- libstdc++-6.dll
+- libwinpthread-1.dll
+
+STEP 7: Build IrBox
+-------------------
+cd C:\path\to\IrBox_Ultimate
+build.bat
+
+Wait for build to complete.
+Output will be in IrBox_Distribution folder.
+
+STEP 8: Run IrBox
+-----------------
+Navigate to IrBox_Distribution\bin
+Run IrBox.exe for client
+Run IrBoxServer.exe for server
+
+TROUBLESHOOTING
+===============
+
+Error: SDL3.dll not found
+Solution: Ensure SDL3 is installed via pacman
+
+Error: lua51.dll not found
+Solution: Install LuaJIT or copy lua51.dll to build folder
+
+Error: libenet not found
+Solution: Build ENet library as shown in Step 5
+
+Error: Compilation fails
+Solution: Check that all include paths are correct in Makefile
+
+ADMINISTRATOR KEY
+=================
+Default admin key: IrBoxAdmin2024
+Change this in irbox_engine.h before distribution!
+
+SERVER USAGE
+============
+1. Run IrBoxServer.exe
+2. Use 'help' command for available commands
+3. Authenticate with 'admin IrBoxAdmin2024'
+4. Execute scripts with 'exec <lua_code>'
+
+CLIENT USAGE
+============
+1. Run IrBox.exe
+2. Click "شروع بازی" to start parkour
+3. Jump between platforms
+4. Reach the end to unlock achievements
+
+STUDIO USAGE
+============
+1. Build with: mingw32-make studio
+2. Run IrBoxStudio.exe
+3. Create new project
+4. Add scripts and models
+5. Save project file
+
+ENCRYPTION
+==========
+Models: XOR encryption with key "IrBoxModelKey2024"
+Scripts: XOR + Hex encoding with key "IrBoxObf2024"
+
+To encrypt custom models:
+lua tools/model_encryptor.lua
+
+To obfuscate scripts:
+lua scripts/obfuscator.lua script.lua
+
+====================================
+Support: DeathAmir And IrAutoX
+Version: 1.0.0
+====================================
